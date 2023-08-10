@@ -16,7 +16,7 @@ def resgisterUser(request):
             # user.role = User.CUSTOMER
             # user.save()
 
-            # create user using create_user method from models
+            # create user using create_user method from models (for throwing errors)
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             username = form.cleaned_data['username']
@@ -25,7 +25,11 @@ def resgisterUser(request):
             user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password)
             user.role = User.CUSTOMER
             user.save()
+            print('User is created')
             return redirect('registerUser')
+        else:
+            print('Invalid Form')
+            print(form.errors)
     else:
         form = UserForm()
 
