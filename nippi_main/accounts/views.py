@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import *
 from .models import User
+from django.contrib import messages
 # Create your views here.
 
 def resgisterUser(request):
@@ -25,7 +26,8 @@ def resgisterUser(request):
             user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password)
             user.role = User.CUSTOMER
             user.save()
-            print('User is created')
+            messages.success(request, "Your account has been registered successfully")
+            
             return redirect('registerUser')
         else:
             print('Invalid Form')
